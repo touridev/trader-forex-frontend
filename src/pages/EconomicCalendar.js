@@ -31,10 +31,11 @@ const Input = styled.input`
   border-radius: 12px;
   border: 1px solid #444;
   background: rgba(255,255,255,0.05);
-  color: #fff;
+  color: #black;
   outline: none;
   font-size: 1rem;
   transition: border 0.3s;
+  width: 100%;
 
   &:focus {
     border: 1px solid #28a745;
@@ -58,13 +59,14 @@ const EconomicCalendar = () => {
   }, []);
 
   const filteredEvents = events.filter(e => 
-    !filterCountry || e.country.toLowerCase().includes(filterCountry.toLowerCase())
+    !filterCountry || e.Country.toLowerCase().includes(filterCountry.toLowerCase())
   );
 
   return (
     <Container>
       <Input
         type="text"
+        color='black'
         placeholder="Filter by country"
         value={filterCountry}
         onChange={e => setFilterCountry(e.target.value)}
