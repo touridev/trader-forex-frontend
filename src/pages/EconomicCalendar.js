@@ -23,7 +23,7 @@ const Impact = styled.span`
   border-radius: 6px;
   color: #fff;
   background-color: ${({ impact }) => 
-    impact === 'High' ? '#dc3545' : impact === 'Medium' ? '#ffc107' : '#28a745'};
+    impact === 3 ? '#dc3545' : impact === 2 ? '#ffc107' : '#28a745'};
 `;
 
 const Input = styled.input`
@@ -41,6 +41,8 @@ const Input = styled.input`
   }
 `;
 
+const impacts = ['Low', 'Medium', 'High'];
+
 
 const EconomicCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -49,6 +51,7 @@ const EconomicCalendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       const res = await axios.get('http://localhost:5000/api/economic-calendar');
+      console.log(res.data);
       setEvents(res.data);
     };
     fetchEvents();
@@ -67,13 +70,14 @@ const EconomicCalendar = () => {
         onChange={e => setFilterCountry(e.target.value)}
         style={{ marginBottom: '1rem', padding: '0.5rem 1rem', borderRadius: '6px', border: '1px solid #ccc'}}
       />
+
       {filteredEvents.map((event, idx) => (
         <EventCard key={idx}>
           <div>
             <h3>{event.event}</h3>
-            <p>{event.country} | {event.date}</p>
+            <p>{event.Country} | {event.Date}</p>
           </div>
-          <Impact impact={event.impact}>{event.impact}</Impact>
+          <Impact impact={event.Importance}>{impacts[event.Importance - 1]}</Impact>
         </EventCard>
       ))}
     </Container>
