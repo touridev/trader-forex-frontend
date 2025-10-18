@@ -20,6 +20,8 @@ const EventCard = styled.div`
 
 const Impact = styled.span`
   padding: 0.25rem 0.5rem;
+  width: 100px;
+  text-align: center;
   border-radius: 6px;
   color: #fff;
   background-color: ${({ impact }) => 
@@ -44,6 +46,10 @@ const Input = styled.input`
 
 const impacts = ['Low', 'Medium', 'High'];
 
+const formatDate = (dateStr) => {
+  const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return new Date(dateStr).toLocaleDateString(undefined, options);
+}
 
 const EconomicCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -77,7 +83,9 @@ const EconomicCalendar = () => {
         <EventCard key={idx}>
           <div>
             <h3>{event.event}</h3>
-            <p>{event.Country} | {event.Date}</p>
+            <p>{event.Country} | {event.Symbol}</p>
+            <p>{event.Event}</p>
+            <p>{formatDate(event.Date)}</p>
           </div>
           <Impact impact={event.Importance}>{impacts[event.Importance - 1]}</Impact>
         </EventCard>
